@@ -29,7 +29,6 @@
     padding-bottom: 3rem;
   }
 
-  /* 헤더 */
   .header {
     background: var(--primary);
     color: white;
@@ -48,329 +47,133 @@
   .title { font-size: 17px; font-weight: 700; letter-spacing: -0.02em; }
   .accent-dot { color: var(--accent); }
 
-  /* 스텝바 */
-  .step-bar {
-    display: flex;
-    gap: 0;
-  }
+  .step-bar { display: flex; gap: 0; }
   .step {
-    flex: 1;
-    text-align: center;
-    font-size: 11px;
-    padding: 6px 2px;
-    color: rgba(255,255,255,0.4);
-    border-bottom: 2px solid rgba(255,255,255,0.15);
-    transition: all 0.2s;
-    cursor: pointer;
+    flex: 1; text-align: center; font-size: 11px; padding: 6px 2px;
+    color: rgba(255,255,255,0.4); border-bottom: 2px solid rgba(255,255,255,0.15);
+    transition: all 0.2s; cursor: pointer;
   }
   .step.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 700; }
   .step.done { color: rgba(255,255,255,0.7); border-bottom-color: rgba(255,255,255,0.4); }
 
-  /* 진행률 */
-  .progress-bar {
-    height: 3px;
-    background: rgba(255,255,255,0.15);
-    border-radius: 2px;
-    margin-top: 8px;
-    overflow: hidden;
-  }
-  .progress-fill {
-    height: 100%;
-    background: var(--accent);
-    border-radius: 2px;
-    transition: width 0.4s ease;
-  }
+  .progress-bar { height: 3px; background: rgba(255,255,255,0.15); border-radius: 2px; margin-top: 8px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.4s ease; }
 
-  /* 콘텐츠 */
-  .content {
-    max-width: 520px;
-    margin: 0 auto;
-    padding: 1.2rem 1rem;
-  }
+  .content { max-width: 520px; margin: 0 auto; padding: 1.2rem 1rem; }
 
-  /* 섹션 카드 */
   .section {
-    background: var(--white);
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    padding: 1.2rem;
-    margin-bottom: 12px;
+    background: var(--white); border-radius: var(--radius);
+    border: 1px solid var(--border); padding: 1.2rem; margin-bottom: 12px;
   }
   .section-title {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    color: var(--white);
-    background: var(--primary);
-    padding: 5px 12px;
-    border-radius: 6px;
-    display: inline-block;
-    margin-bottom: 1rem;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em; color: var(--white);
+    background: var(--primary); padding: 5px 12px; border-radius: 6px;
+    display: inline-block; margin-bottom: 1rem;
   }
 
-  /* 폼 필드 */
   .field { margin-bottom: 12px; }
-  .field label {
-    display: block;
-    font-size: 11px;
-    font-weight: 500;
-    color: var(--muted);
-    margin-bottom: 4px;
-    letter-spacing: 0.02em;
+  .field label { display: block; font-size: 11px; font-weight: 500; color: var(--muted); margin-bottom: 4px; letter-spacing: 0.02em; }
+  .field input, .field select, .field textarea {
+    width: 100%; padding: 10px 12px; font-size: 14px;
+    font-family: 'Noto Sans KR', sans-serif; border: 1px solid var(--border);
+    border-radius: 8px; background: #fafaf8; color: var(--text); outline: none;
+    transition: border-color 0.15s, background 0.15s; -webkit-appearance: none;
   }
-  .field input,
-  .field select,
-  .field textarea {
-    width: 100%;
-    padding: 10px 12px;
-    font-size: 14px;
-    font-family: 'Noto Sans KR', sans-serif;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background: #fafaf8;
-    color: var(--text);
-    outline: none;
-    transition: border-color 0.15s, background 0.15s;
-    -webkit-appearance: none;
-  }
-  .field input:focus,
-  .field select:focus,
-  .field textarea:focus {
-    border-color: var(--primary);
-    background: white;
-  }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--primary); background: white; }
   .field textarea { resize: vertical; line-height: 1.6; }
 
   .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
 
-  /* 예/아니오 */
   .yn-item {
-    display: grid;
-    grid-template-columns: 1fr 52px 52px;
-    align-items: center;
-    border-bottom: 1px solid #f0ede6;
-    padding: 10px 0;
-    gap: 6px;
+    display: grid; grid-template-columns: 1fr 52px 52px;
+    align-items: center; border-bottom: 1px solid #f0ede6; padding: 10px 0; gap: 6px;
   }
   .yn-item:last-child { border-bottom: none; padding-bottom: 0; }
   .yn-item:first-child { padding-top: 0; }
   .yn-q { font-size: 13px; color: var(--text); line-height: 1.4; }
   .yn-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    font-size: 12px;
-    font-family: 'Noto Sans KR', sans-serif;
-    padding: 6px 4px;
-    border-radius: 6px;
-    border: 1px solid var(--border);
-    background: #fafaf8;
-    cursor: pointer;
-    transition: all 0.15s;
-    color: var(--muted);
-    -webkit-appearance: none;
+    display: flex; align-items: center; justify-content: center; gap: 5px;
+    font-size: 12px; font-family: 'Noto Sans KR', sans-serif; padding: 6px 4px;
+    border-radius: 6px; border: 1px solid var(--border); background: #fafaf8;
+    cursor: pointer; transition: all 0.15s; color: var(--muted); -webkit-appearance: none;
   }
   .yn-btn.selected-yes { background: #e8f4ec; border-color: #2d7a4f; color: #2d7a4f; font-weight: 700; }
   .yn-btn.selected-no { background: #fdecea; border-color: #b94040; color: #b94040; font-weight: 700; }
 
-  /* 체크 항목 */
-  .check-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 7px;
-  }
+  .check-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
   .check-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 12px;
-    padding: 9px 10px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    cursor: pointer;
-    background: #fafaf8;
-    transition: all 0.15s;
+    display: flex; align-items: center; gap: 6px; font-size: 12px;
+    padding: 9px 10px; border: 1px solid var(--border); border-radius: 8px;
+    cursor: pointer; background: #fafaf8; transition: all 0.15s;
     -webkit-tap-highlight-color: transparent;
   }
   .check-item input { display: none; }
   .check-item .cb {
-    width: 16px;
-    height: 16px;
-    border-radius: 4px;
-    border: 1.5px solid var(--border);
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.15s;
+    width: 16px; height: 16px; border-radius: 4px; border: 1.5px solid var(--border);
+    flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.15s;
   }
-  .check-item.checked {
-    background: #eef2fa;
-    border-color: var(--primary);
-    color: var(--primary);
-    font-weight: 500;
-  }
-  .check-item.checked .cb {
-    background: var(--primary);
-    border-color: var(--primary);
-  }
+  .check-item.checked { background: #eef2fa; border-color: var(--primary); color: var(--primary); font-weight: 500; }
+  .check-item.checked .cb { background: var(--primary); border-color: var(--primary); }
   .check-item.checked .cb::after {
-    content: '';
-    width: 8px;
-    height: 5px;
-    border-left: 2px solid white;
-    border-bottom: 2px solid white;
-    transform: rotate(-45deg) translateY(-1px);
-    display: block;
+    content: ''; width: 8px; height: 5px; border-left: 2px solid white;
+    border-bottom: 2px solid white; transform: rotate(-45deg) translateY(-1px); display: block;
   }
 
-  /* 네비게이션 버튼 */
-  .nav {
-    display: flex;
-    gap: 10px;
-    margin-top: 8px;
-  }
+  .nav { display: flex; gap: 10px; margin-top: 8px; }
   .btn-back {
-    padding: 13px 20px;
-    font-size: 14px;
-    font-family: 'Noto Sans KR', sans-serif;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    background: white;
-    color: var(--muted);
-    cursor: pointer;
-    flex-shrink: 0;
+    padding: 13px 20px; font-size: 14px; font-family: 'Noto Sans KR', sans-serif;
+    border-radius: 10px; border: 1px solid var(--border); background: white; color: var(--muted); cursor: pointer; flex-shrink: 0;
   }
   .btn-next {
-    flex: 1;
-    padding: 13px;
-    font-size: 15px;
-    font-weight: 700;
-    font-family: 'Noto Sans KR', sans-serif;
-    border-radius: 10px;
-    border: none;
-    background: var(--primary);
-    color: white;
-    cursor: pointer;
-    letter-spacing: -0.01em;
-    transition: opacity 0.15s;
+    flex: 1; padding: 13px; font-size: 15px; font-weight: 700;
+    font-family: 'Noto Sans KR', sans-serif; border-radius: 10px; border: none;
+    background: var(--primary); color: white; cursor: pointer; letter-spacing: -0.01em; transition: opacity 0.15s;
   }
   .btn-next:active { opacity: 0.85; }
   .btn-submit {
-    width: 100%;
-    padding: 15px;
-    font-size: 16px;
-    font-weight: 700;
-    font-family: 'Noto Sans KR', sans-serif;
-    border-radius: 10px;
-    border: none;
-    background: var(--accent);
-    color: white;
-    cursor: pointer;
-    margin-top: 8px;
-    letter-spacing: -0.01em;
+    width: 100%; padding: 15px; font-size: 16px; font-weight: 700;
+    font-family: 'Noto Sans KR', sans-serif; border-radius: 10px; border: none;
+    background: var(--accent); color: white; cursor: pointer; margin-top: 8px; letter-spacing: -0.01em;
   }
 
-  /* 병력 헤더 */
   .hx-header {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--primary);
-    background: #eef2fa;
-    padding: 6px 10px;
-    border-radius: 6px;
-    margin-bottom: 10px;
-    margin-top: 14px;
+    font-size: 11px; font-weight: 700; color: var(--primary); background: #eef2fa;
+    padding: 6px 10px; border-radius: 6px; margin-bottom: 10px; margin-top: 14px;
   }
   .hx-header:first-child { margin-top: 0; }
   .hx-notice {
-    font-size: 11px;
-    color: #b94040;
-    background: #fdecea;
-    padding: 8px 10px;
-    border-radius: 6px;
-    margin-bottom: 12px;
-    text-align: center;
-    font-weight: 500;
+    font-size: 11px; color: #b94040; background: #fdecea; padding: 8px 10px;
+    border-radius: 6px; margin-bottom: 12px; text-align: center; font-weight: 500;
   }
 
-  /* 소중한 분 */
-  .ref-row {
-    border-bottom: 1px solid #f0ede6;
-    padding-bottom: 12px;
-    margin-bottom: 12px;
-  }
+  .ref-row { border-bottom: 1px solid #f0ede6; padding-bottom: 12px; margin-bottom: 12px; }
   .ref-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-  .ref-num {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--accent);
-    margin-bottom: 8px;
-  }
+  .ref-num { font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 8px; }
 
-  /* 완료 화면 */
   #done-view { display: none; }
-  .done-header {
-    background: var(--primary);
-    color: white;
-    padding: 2rem 1.5rem;
-    text-align: center;
-  }
+  .done-header { background: var(--primary); color: white; padding: 2rem 1.5rem; text-align: center; }
   .done-icon {
-    width: 60px;
-    height: 60px;
-    background: var(--accent);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1rem;
-    font-size: 28px;
+    width: 60px; height: 60px; background: var(--accent); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 28px;
   }
   .done-title { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
   .done-sub { font-size: 13px; color: rgba(255,255,255,0.65); }
-  .summary-card {
-    background: white;
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    padding: 1.2rem;
-    margin: 1rem;
-  }
+  .summary-card { background: white; border-radius: var(--radius); border: 1px solid var(--border); padding: 1.2rem; margin: 1rem; }
   .summary-title { font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: 0.06em; margin-bottom: 12px; }
-  .summary-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 8px 0;
-    border-bottom: 1px solid #f0ede6;
-    font-size: 13px;
-    gap: 12px;
-  }
+  .summary-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid #f0ede6; font-size: 13px; gap: 12px; }
   .summary-row:last-child { border-bottom: none; }
   .summary-key { color: var(--muted); flex-shrink: 0; }
   .summary-val { color: var(--text); font-weight: 500; text-align: right; }
   .btn-new {
-    display: block;
-    margin: 0 1rem 2rem;
-    padding: 14px;
-    font-size: 15px;
-    font-weight: 700;
-    font-family: 'Noto Sans KR', sans-serif;
-    border-radius: 10px;
-    border: none;
-    background: var(--primary);
-    color: white;
-    cursor: pointer;
-    text-align: center;
-    width: calc(100% - 2rem);
+    display: block; margin: 0 1rem 2rem; padding: 14px; font-size: 15px; font-weight: 700;
+    font-family: 'Noto Sans KR', sans-serif; border-radius: 10px; border: none;
+    background: var(--primary); color: white; cursor: pointer; text-align: center; width: calc(100% - 2rem);
   }
 </style>
 </head>
 <body>
 
-<!-- 메인 폼 -->
 <div id="main-form">
   <div class="header">
     <div class="header-top">
@@ -391,7 +194,7 @@
 
   <div class="content">
 
-    <!-- STEP 1 고객정보 -->
+    <!-- STEP 1 -->
     <div id="s1">
       <div class="section">
         <div class="section-title">고객 정보</div>
@@ -438,12 +241,11 @@
       </div>
     </div>
 
-    <!-- STEP 2 병력사항 -->
+    <!-- STEP 2 -->
     <div id="s2" style="display:none;">
       <div class="section">
         <div class="section-title">병력 사항</div>
         <div class="hx-notice">★ 병력 누락 시, 보험금을 받을 수 없습니다. 빠짐없이 기재 부탁드립니다 ★</div>
-
         <div class="hx-header">최근 3개월</div>
         <div class="row2">
           <div class="field"><label>질병 확정진단</label><input id="h-3m-diag" placeholder="병명" /></div>
@@ -455,7 +257,6 @@
           <div class="field"><label>입원</label><input id="h-3m-hosp" placeholder="병원/일수" /></div>
         </div>
         <div class="field"><label>수술</label><input id="h-3m-surg" placeholder="수술명" /></div>
-
         <div class="hx-header">최근 1년</div>
         <div class="field"><label>의사로부터 진찰 또는 검사를 통해 추가검사(재검사) 소견 여부</label>
           <div style="display:flex;gap:8px;margin-top:2px;">
@@ -463,7 +264,6 @@
             <button class="yn-btn" id="h1y-no" onclick="ynSelect('h1y','아니오')">아니오</button>
           </div>
         </div>
-
         <div class="hx-header">최근 5년</div>
         <div class="row2">
           <div class="field"><label>입원</label><input id="h-5y-hosp" placeholder="병원/기간" /></div>
@@ -473,7 +273,6 @@
           <div class="field"><label>7일이상 치료</label><input id="h-5y-treat7" placeholder="내용" /></div>
           <div class="field"><label>30일이상 투약</label><input id="h-5y-meds30" placeholder="약명/기간" /></div>
         </div>
-
         <div class="hx-header">치료 이력</div>
         <div class="row2">
           <div class="field"><label>치료기간</label><input id="h-tx-period" placeholder="기간" /></div>
@@ -490,52 +289,35 @@
       </div>
     </div>
 
-    <!-- STEP 3 점검목적 -->
+    <!-- STEP 3 -->
     <div id="s3" style="display:none;">
       <div class="section">
         <div class="section-title">점검 목적</div>
-        <div class="yn-item">
-          <div class="yn-q">현재 보험료가 걱정되시나요?</div>
+        <div class="yn-item"><div class="yn-q">현재 보험료가 걱정되시나요?</div>
           <button class="yn-btn" id="p1-yes" onclick="ynSelect('p1','예')">예</button>
-          <button class="yn-btn" id="p1-no" onclick="ynSelect('p1','아니오')">아니오</button>
-        </div>
-        <div class="yn-item">
-          <div class="yn-q">현재 보장이 걱정되시나요?</div>
+          <button class="yn-btn" id="p1-no" onclick="ynSelect('p1','아니오')">아니오</button></div>
+        <div class="yn-item"><div class="yn-q">현재 보장이 걱정되시나요?</div>
           <button class="yn-btn" id="p2-yes" onclick="ynSelect('p2','예')">예</button>
-          <button class="yn-btn" id="p2-no" onclick="ynSelect('p2','아니오')">아니오</button>
-        </div>
-        <div class="yn-item">
-          <div class="yn-q">현재 병력이 있어서 걱정되시나요?</div>
+          <button class="yn-btn" id="p2-no" onclick="ynSelect('p2','아니오')">아니오</button></div>
+        <div class="yn-item"><div class="yn-q">현재 병력이 있어서 걱정되시나요?</div>
           <button class="yn-btn" id="p3-yes" onclick="ynSelect('p3','예')">예</button>
-          <button class="yn-btn" id="p3-no" onclick="ynSelect('p3','아니오')">아니오</button>
-        </div>
-        <div class="yn-item">
-          <div class="yn-q">현재 사망보험금이 필요하신가요?</div>
+          <button class="yn-btn" id="p3-no" onclick="ynSelect('p3','아니오')">아니오</button></div>
+        <div class="yn-item"><div class="yn-q">현재 사망보험금이 필요하신가요?</div>
           <button class="yn-btn" id="p4-yes" onclick="ynSelect('p4','예')">예</button>
-          <button class="yn-btn" id="p4-no" onclick="ynSelect('p4','아니오')">아니오</button>
-        </div>
-        <div class="yn-item">
-          <div class="yn-q">2년후 임플란트 계획이 있으신가요?</div>
+          <button class="yn-btn" id="p4-no" onclick="ynSelect('p4','아니오')">아니오</button></div>
+        <div class="yn-item"><div class="yn-q">2년후 임플란트 계획이 있으신가요?</div>
           <button class="yn-btn" id="p5-yes" onclick="ynSelect('p5','예')">예</button>
-          <button class="yn-btn" id="p5-no" onclick="ynSelect('p5','아니오')">아니오</button>
-        </div>
-        <div class="yn-item">
-          <div class="yn-q">현재 간병인 보험이 필요하신가요?</div>
+          <button class="yn-btn" id="p5-no" onclick="ynSelect('p5','아니오')">아니오</button></div>
+        <div class="yn-item"><div class="yn-q">현재 간병인 보험이 필요하신가요?</div>
           <button class="yn-btn" id="p6-yes" onclick="ynSelect('p6','예')">예</button>
-          <button class="yn-btn" id="p6-no" onclick="ynSelect('p6','아니오')">아니오</button>
-        </div>
-        <div class="yn-item">
-          <div class="yn-q">현재 치매보험이 필요하신가요?</div>
+          <button class="yn-btn" id="p6-no" onclick="ynSelect('p6','아니오')">아니오</button></div>
+        <div class="yn-item"><div class="yn-q">현재 치매보험이 필요하신가요?</div>
           <button class="yn-btn" id="p7-yes" onclick="ynSelect('p7','예')">예</button>
-          <button class="yn-btn" id="p7-no" onclick="ynSelect('p7','아니오')">아니오</button>
-        </div>
-        <div class="yn-item">
-          <div class="yn-q">지금 저축은 어디서 하고 계신가요?</div>
+          <button class="yn-btn" id="p7-no" onclick="ynSelect('p7','아니오')">아니오</button></div>
+        <div class="yn-item"><div class="yn-q">지금 저축은 어디서 하고 계신가요?</div>
           <button class="yn-btn" id="p8-yes" onclick="ynSelect('p8','예')">예</button>
-          <button class="yn-btn" id="p8-no" onclick="ynSelect('p8','아니오')">아니오</button>
-        </div>
+          <button class="yn-btn" id="p8-no" onclick="ynSelect('p8','아니오')">아니오</button></div>
       </div>
-
       <div class="section">
         <div class="section-title">무엇이든 물어보세요!</div>
         <div class="check-grid">
@@ -565,7 +347,7 @@
       </div>
     </div>
 
-    <!-- STEP 4 상담내용 -->
+    <!-- STEP 4 -->
     <div id="s4" style="display:none;">
       <div class="section">
         <div class="section-title">상담 내용</div>
@@ -574,7 +356,6 @@
           <textarea id="c-content" rows="5" placeholder="상담 내용 및 계약 사항을 자유롭게 입력하세요."></textarea>
         </div>
       </div>
-
       <div class="section">
         <div class="section-title">상담 같이 들어야 하는 소중한 분</div>
         <div class="ref-row">
@@ -641,9 +422,7 @@
     window.scrollTo(0, 0);
   }
 
-  function jumpStep(n) {
-    if (n <= currentStep) goS(n);
-  }
+  function jumpStep(n) { if (n <= currentStep) goS(n); }
 
   function updateStepUI(n) {
     var pct = [25, 50, 75, 100];
@@ -677,30 +456,188 @@
     return el ? (el.value || '—') : '—';
   }
 
+  // ── HTML 이메일 생성 함수 ──────────────────────────────────
+  function buildHtmlEmail(name, data) {
+    var now = new Date();
+    var dateStr = now.getFullYear() + '년 ' + (now.getMonth()+1) + '월 ' + now.getDate() + '일';
+
+    function row(label, val) {
+      if (!val || val === '—') return '';
+      return '<tr><td style="padding:9px 14px;font-size:12px;color:#888;border-bottom:1px solid #f0ede6;white-space:nowrap;width:110px;vertical-align:top">' + label + '</td>'
+           + '<td style="padding:9px 14px;font-size:13px;color:#1a1a1a;font-weight:500;border-bottom:1px solid #f0ede6">' + val + '</td></tr>';
+    }
+
+    function sectionHead(title, icon) {
+      return '<tr><td colspan="2" style="padding:14px 14px 6px;background:#f5f4f0">'
+           + '<span style="display:inline-block;background:#1a2744;color:white;font-size:10px;font-weight:700;letter-spacing:0.1em;padding:4px 10px;border-radius:5px">'
+           + icon + ' ' + title + '</span></td></tr>';
+    }
+
+    function yesChip(val) {
+      if (!val || val === '—') return '<span style="color:#aaa">—</span>';
+      var isYes = val === '예';
+      return '<span style="display:inline-block;padding:2px 10px;border-radius:99px;font-size:12px;font-weight:700;background:' + (isYes ? '#e8f4ec' : '#fdecea') + ';color:' + (isYes ? '#2d7a4f' : '#b94040') + ';border:1px solid ' + (isYes ? '#2d7a4f' : '#b94040') + '">' + val + '</span>';
+    }
+
+    // 소중한 분 HTML
+    var sosHtml = '';
+    var refNames = document.querySelectorAll('.ref-name');
+    var refPhones = document.querySelectorAll('.ref-phone');
+    var refRels = document.querySelectorAll('.ref-rel');
+    var sosRows = '';
+    for (var i = 0; i < refNames.length; i++) {
+      if (refNames[i].value.trim()) {
+        var initials = refNames[i].value.trim().charAt(0);
+        sosRows += '<tr><td colspan="2" style="padding:10px 14px;border-bottom:1px solid #f0ede6">'
+          + '<table style="width:100%;border-collapse:collapse"><tr>'
+          + '<td style="width:38px">'
+          + '<div style="width:36px;height:36px;border-radius:50%;background:#fef3dc;border:1px solid #c9973a;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#c9973a;text-align:center;line-height:36px">' + initials + '</div>'
+          + '</td>'
+          + '<td style="padding-left:10px">'
+          + '<div style="font-size:13px;font-weight:700;color:#1a1a1a">' + refNames[i].value + '</div>'
+          + '<div style="font-size:12px;color:#888;margin-top:2px">' + (refPhones[i].value||'—') + '</div>'
+          + '</td>'
+          + '<td style="text-align:right">'
+          + '<span style="display:inline-block;padding:2px 10px;border-radius:99px;font-size:11px;font-weight:700;background:#fef3dc;color:#c9973a;border:1px solid #c9973a">' + (refRels[i].value||'—') + '</span>'
+          + '</td>'
+          + '</tr></table>'
+          + '</td></tr>';
+      }
+    }
+    if (sosRows) {
+      sosHtml = sectionHead('소중한 분', '♥') + sosRows;
+    }
+
+    // 관심항목 칩
+    var topicChips = checkedTopics.length
+      ? checkedTopics.map(function(t){ return '<span style="display:inline-block;margin:2px 3px;padding:3px 10px;border-radius:99px;font-size:11px;font-weight:500;background:#eef2fa;color:#1a2744;border:1px solid #b0bcd8">' + t + '</span>'; }).join('')
+      : '<span style="color:#aaa;font-size:12px">없음</span>';
+
+    // 병력 항목
+    var h3mDiag = v('h-3m-diag'); var h3mSuspect = v('h-3m-suspect');
+    var h3mMeds = v('h-3m-meds'); var h3mTreat = v('h-3m-treat');
+    var h3mHosp = v('h-3m-hosp'); var h3mSurg = v('h-3m-surg');
+    var h5yHosp = v('h-5y-hosp'); var h5ySurg = v('h-5y-surg');
+    var h5yTreat = v('h-5y-treat7'); var h5yMeds = v('h-5y-meds30');
+    var hTxPeriod = v('h-tx-period'); var hTxDiag = v('h-tx-diag');
+    var hTxMethod = v('h-tx-method'); var hTxStatus = v('h-tx-status');
+    var hasMedical = [h3mDiag,h3mSuspect,h3mMeds,h3mTreat,h3mHosp,h3mSurg,h5yHosp,h5ySurg,h5yTreat,h5yMeds,hTxPeriod,hTxDiag,hTxMethod,hTxStatus].some(function(x){ return x !== '—'; });
+
+    var medicalRows = '';
+    if (hasMedical) {
+      medicalRows = sectionHead('병력 사항', '🏥')
+        + (h3mDiag !== '—' ? row('3개월·진단', h3mDiag) : '')
+        + (h3mSuspect !== '—' ? row('3개월·의심', h3mSuspect) : '')
+        + (h3mMeds !== '—' ? row('3개월·투약', h3mMeds) : '')
+        + (h3mTreat !== '—' ? row('3개월·치료', h3mTreat) : '')
+        + (h3mHosp !== '—' ? row('3개월·입원', h3mHosp) : '')
+        + (h3mSurg !== '—' ? row('3개월·수술', h3mSurg) : '')
+        + (ynState['h1y'] ? '<tr><td style="padding:9px 14px;font-size:12px;color:#888;border-bottom:1px solid #f0ede6;width:110px">1년·재검사</td><td style="padding:9px 14px;border-bottom:1px solid #f0ede6">' + yesChip(ynState['h1y']) + '</td></tr>' : '')
+        + (h5yHosp !== '—' ? row('5년·입원', h5yHosp) : '')
+        + (h5ySurg !== '—' ? row('5년·수술', h5ySurg) : '')
+        + (h5yTreat !== '—' ? row('5년·7일치료', h5yTreat) : '')
+        + (h5yMeds !== '—' ? row('5년·30일투약', h5yMeds) : '')
+        + (hTxPeriod !== '—' ? row('치료기간', hTxPeriod) : '')
+        + (hTxDiag !== '—' ? row('진단명', hTxDiag) : '')
+        + (hTxMethod !== '—' ? row('치료방법', hTxMethod) : '')
+        + (hTxStatus !== '—' ? row('완치여부', hTxStatus) : '');
+    }
+
+    var consulting = v('c-content');
+
+    return '<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>'
+    + '<body style="margin:0;padding:0;background:#f0ede7;font-family:Apple SD Gothic Neo,Malgun Gothic,Noto Sans KR,sans-serif">'
+    + '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f0ede7;padding:24px 0"><tr><td align="center">'
+    + '<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:white;border-radius:16px;overflow:hidden;border:1px solid #ddd9d0">'
+
+    // 헤더
+    + '<tr><td style="background:#1a2744;padding:28px 28px 24px">'
+    + '<table width="100%" cellpadding="0" cellspacing="0"><tr>'
+    + '<td><div style="font-size:10px;color:rgba(255,255,255,0.5);letter-spacing:0.12em;margin-bottom:4px">AZ FINANCIAL SERVICE</div>'
+    + '<div style="font-size:20px;font-weight:700;color:white;letter-spacing:-0.02em">신규 고객 등록 알림<span style="color:#c9973a">.</span></div>'
+    + '<div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:4px">' + dateStr + ' 접수</div></td>'
+    + '<td align="right" style="vertical-align:top">'
+    + '<div style="width:52px;height:52px;border-radius:50%;background:#c9973a;display:inline-flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:white;line-height:52px;text-align:center">' + name.charAt(0) + '</div>'
+    + '</td></tr></table>'
+    + '</td></tr>'
+
+    // 이름 배너
+    + '<tr><td style="background:#c9973a;padding:12px 28px;display:flex;align-items:center;justify-content:space-between">'
+    + '<table width="100%" cellpadding="0" cellspacing="0"><tr>'
+    + '<td style="font-size:17px;font-weight:700;color:white">' + name + ' 고객님</td>'
+    + '<td align="right">'
+    + (v('g-gender') !== '—' ? '<span style="display:inline-block;background:rgba(255,255,255,0.25);color:white;font-size:11px;padding:2px 9px;border-radius:99px;margin-left:5px">' + v('g-gender') + '</span>' : '')
+    + (v('g-route') !== '—' ? '<span style="display:inline-block;background:rgba(255,255,255,0.25);color:white;font-size:11px;padding:2px 9px;border-radius:99px;margin-left:5px">' + v('g-route') + '</span>' : '')
+    + '</td></tr></table>'
+    + '</td></tr>'
+
+    // 기본 정보
+    + '<tr><td><table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse">'
+    + sectionHead('기본 정보', '👤')
+    + row('연락처', v('g-phone'))
+    + row('주소', v('g-addr'))
+    + row('직업', v('g-job'))
+    + row('직장명', v('g-company'))
+    + row('운전여부', v('g-drive'))
+    + row('키/몸무게', (v('g-height') !== '—' ? v('g-height')+'cm' : '') + (v('g-weight') !== '—' ? ' / '+v('g-weight')+'kg' : ''))
+    + row('가족구성', v('g-family'))
+    + row('통신사', v('g-telecom'))
+    + row('이체일', v('g-paydate'))
+    + row('계약일자', v('g-contractdate'))
+
+    // 관심 항목
+    + sectionHead('관심 항목', '★')
+    + '<tr><td colspan="2" style="padding:12px 14px;border-bottom:1px solid #f0ede6">' + topicChips + '</td></tr>'
+
+    // 점검 목적
+    + sectionHead('점검 목적', '✔')
+    + '<tr><td style="padding:9px 14px;font-size:12px;color:#888;border-bottom:1px solid #f0ede6;width:110px">보험료 걱정</td><td style="padding:9px 14px;border-bottom:1px solid #f0ede6">' + yesChip(ynState['p1']) + '</td></tr>'
+    + '<tr><td style="padding:9px 14px;font-size:12px;color:#888;border-bottom:1px solid #f0ede6">보장 걱정</td><td style="padding:9px 14px;border-bottom:1px solid #f0ede6">' + yesChip(ynState['p2']) + '</td></tr>'
+    + '<tr><td style="padding:9px 14px;font-size:12px;color:#888;border-bottom:1px solid #f0ede6">병력 걱정</td><td style="padding:9px 14px;border-bottom:1px solid #f0ede6">' + yesChip(ynState['p3']) + '</td></tr>'
+    + '<tr><td style="padding:9px 14px;font-size:12px;color:#888;border-bottom:1px solid #f0ede6">사망보험금</td><td style="padding:9px 14px;border-bottom:1px solid #f0ede6">' + yesChip(ynState['p4']) + '</td></tr>'
+    + '<tr><td style="padding:9px 14px;font-size:12px;color:#888;border-bottom:1px solid #f0ede6">임플란트</td><td style="padding:9px 14px;border-bottom:1px solid #f0ede6">' + yesChip(ynState['p5']) + '</td></tr>'
+    + '<tr><td style="padding:9px 14px;font-size:12px;color:#888;border-bottom:1px solid #f0ede6">간병인 보험</td><td style="padding:9px 14px;border-bottom:1px solid #f0ede6">' + yesChip(ynState['p6']) + '</td></tr>'
+    + '<tr><td style="padding:9px 14px;font-size:12px;color:#888;border-bottom:1px solid #f0ede6">치매보험</td><td style="padding:9px 14px;border-bottom:1px solid #f0ede6">' + yesChip(ynState['p7']) + '</td></tr>'
+
+    // 병력
+    + medicalRows
+
+    // 상담내용
+    + (consulting !== '—' ? sectionHead('상담 내용', '📝') + '<tr><td colspan="2" style="padding:12px 14px;border-bottom:1px solid #f0ede6;font-size:13px;color:#1a1a1a;line-height:1.7;white-space:pre-line">' + consulting + '</td></tr>' : '')
+
+    // 소중한 분
+    + sosHtml
+
+    + '</table></td></tr>'
+
+    // 푸터
+    + '<tr><td style="background:#f5f4f0;padding:18px 28px;border-top:1px solid #ddd9d0">'
+    + '<table width="100%" cellpadding="0" cellspacing="0"><tr>'
+    + '<td style="font-size:11px;color:#aaa;line-height:1.6">에즈금융서비스 · 한결지점 5팀<br>보험, 그 이상을 하다</td>'
+    + '<td align="right" style="font-size:11px;color:#c9973a;font-weight:700">INSURAI</td>'
+    + '</tr></table>'
+    + '</td></tr>'
+
+    + '</table>'
+    + '</td></tr></table>'
+    + '</body></html>';
+  }
+
   function submitCard() {
     var name = document.getElementById('g-name').value.trim() || '미입력';
-    var rows = [
-      ['성함', name],
-      ['성별', v('g-gender')],
-      ['연락처', v('g-phone')],
-      ['주소', v('g-addr')],
-      ['직업', v('g-job')],
-      ['직장명', v('g-company')],
-      ['운전여부', v('g-drive')],
-      ['키/몸무게', v('g-height')+'cm / '+v('g-weight')+'kg'],
-      ['가족구성', v('g-family')],
-      ['모집경로', v('g-route')],
-      ['관심 항목', checkedTopics.length ? checkedTopics.join(', ') : '없음'],
-      ['보험료 걱정', ynState['p1'] || '—'],
-      ['보장 걱정', ynState['p2'] || '—'],
-      ['병력 걱정', ynState['p3'] || '—'],
-      ['사망보험금 필요', ynState['p4'] || '—'],
-      ['임플란트 계획', ynState['p5'] || '—'],
-      ['간병인 보험', ynState['p6'] || '—'],
-      ['치매보험 필요', ynState['p7'] || '—'],
-      ['상담 내용', v('c-content')],
-    ];
 
+    // 요약용 rows (완료화면 표시용)
+    var rows = [
+      ['성함', name], ['성별', v('g-gender')], ['연락처', v('g-phone')],
+      ['주소', v('g-addr')], ['직업', v('g-job')], ['직장명', v('g-company')],
+      ['운전여부', v('g-drive')], ['키/몸무게', v('g-height')+'cm / '+v('g-weight')+'kg'],
+      ['가족구성', v('g-family')], ['모집경로', v('g-route')],
+      ['관심 항목', checkedTopics.length ? checkedTopics.join(', ') : '없음'],
+      ['보험료 걱정', ynState['p1']||'—'], ['보장 걱정', ynState['p2']||'—'],
+      ['병력 걱정', ynState['p3']||'—'], ['사망보험금 필요', ynState['p4']||'—'],
+      ['임플란트 계획', ynState['p5']||'—'], ['간병인 보험', ynState['p6']||'—'],
+      ['치매보험 필요', ynState['p7']||'—'], ['상담 내용', v('c-content')],
+    ];
     var refNames = document.querySelectorAll('.ref-name');
     var refPhones = document.querySelectorAll('.ref-phone');
     var refRels = document.querySelectorAll('.ref-rel');
@@ -712,17 +649,19 @@
       }
     }
 
-    var msgText = rows.map(function(r){ return r[0] + ': ' + r[1]; }).join('\n');
+    // ── 핵심 변경: HTML 이메일로 발송 ──
+    var htmlEmail = buildHtmlEmail(name, rows);
 
     emailjs.send('service_0jbz2km', 'template_yo8iku3', {
       customer_name: name,
-      message: msgText
+      message: htmlEmail   // HTML을 그대로 전달
     }).then(function() {
       console.log('이메일 전송 성공');
     }, function(error) {
       console.log('이메일 전송 실패', error);
     });
 
+    // 완료화면
     document.getElementById('done-name-sub').textContent = name + ' 고객님의 정보가 전달되었습니다.';
     document.getElementById('done-summary').innerHTML = rows.map(function(r) {
       return '<div class="summary-row"><span class="summary-key">'+r[0]+'</span><span class="summary-val">'+r[1]+'</span></div>';
@@ -737,9 +676,7 @@
     document.querySelectorAll('select').forEach(function(el){ el.selectedIndex=0; });
     document.querySelectorAll('.yn-btn').forEach(function(el){ el.className='yn-btn'; });
     document.querySelectorAll('.check-item').forEach(function(el){ el.classList.remove('checked'); });
-    ynState = {};
-    checkedTopics = [];
-    currentStep = 1;
+    ynState = {}; checkedTopics = []; currentStep = 1;
     document.getElementById('done-view').style.display = 'none';
     document.getElementById('main-form').style.display = 'block';
     goS(1);
