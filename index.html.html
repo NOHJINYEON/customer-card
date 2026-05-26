@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>고객관리 카드 — 에즈금융서비스</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+
+  :root {
+    --primary: #1a2744;
+    --accent: #c9973a;
+    --bg: #f5f4f0;
+    --white: #ffffff;
+    --border: #ddd9d0;
+    --text: #1a1a1a;
+    --muted: #777;
+    --radius: 10px;
+    --success: #2d7a4f;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding-bottom: 3rem;
+  }
+
+  /* 헤더 */
+  .header {
+    background: var(--primary);
+    color: white;
+    padding: 1.2rem 1.5rem 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.8rem;
+  }
+  .brand { font-size: 11px; color: rgba(255,255,255,0.55); letter-spacing: 0.08em; }
+  .title { font-size: 17px; font-weight: 700; letter-spacing: -0.02em; }
+  .accent-dot { color: var(--accent); }
+
+  /* 스텝바 */
+  .step-bar {
+    display: flex;
+    gap: 0;
+  }
+  .step {
+    flex: 1;
+    text-align: center;
+    font-size: 11px;
+    padding: 6px 2px;
+    color: rgba(255,255,255,0.4);
+    border-bottom: 2px solid rgba(255,255,255,0.15);
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .step.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 700; }
+  .step.done { color: rgba(255,255,255,0.7); border-bottom-color: rgba(255,255,255,0.4); }
+
+  /* 진행률 */
+  .progress-bar {
+    height: 3px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 2px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+
+  /* 콘텐츠 */
+  .content {
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 1.2rem 1rem;
+  }
+
+  /* 섹션 카드 */
+  .section {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 1.2rem;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--white);
+    background: var(--primary);
+    padding: 5px 12px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+
+  /* 폼 필드 */
+  .field { margin-bottom: 12px; }
+  .field label {
+    display: block;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--muted);
+    margin-bottom: 4px;
+    letter-spacing: 0.02em;
+  }
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 14px;
+    font-family: 'Noto Sans KR', sans-serif;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #fafaf8;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.15s, background 0.15s;
+    -webkit-appearance: none;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: var(--primary);
+    background: white;
+  }
+  .field textarea { resize: vertical; line-height: 1.6; }
+
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+
+  /* 예/아니오 */
+  .yn-item {
+    display: grid;
+    grid-template-columns: 1fr 52px 52px;
+    align-items: center;
+    border-bottom: 1px solid #f0ede6;
+    padding: 10px 0;
+    gap: 6px;
+  }
+  .yn-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .yn-item:first-child { padding-top: 0; }
+  .yn-q { font-size: 13px; color: var(--text); line-height: 1.4; }
+  .yn-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-size: 12px;
+    font-family: 'Noto Sans KR', sans-serif;
+    padding: 6px 4px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: #fafaf8;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: var(--muted);
+    -webkit-appearance: none;
+  }
+  .yn-btn.selected-yes { background: #e8f4ec; border-color: #2d7a4f; color: #2d7a4f; font-weight: 700; }
+  .yn-btn.selected-no { background: #fdecea; border-color: #b94040; color: #b94040; font-weight: 700; }
+
+  /* 체크 항목 */
+  .check-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 7px;
+  }
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    padding: 9px 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    background: #fafaf8;
+    transition: all 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .check-item input { display: none; }
+  .check-item .cb {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    border: 1.5px solid var(--border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+  .check-item.checked {
+    background: #eef2fa;
+    border-color: var(--primary);
+    color: var(--primary);
+    font-weight: 500;
+  }
+  .check-item.checked .cb {
+    background: var(--primary);
+    border-color: var(--primary);
+  }
+  .check-item.checked .cb::after {
+    content: '';
+    width: 8px;
+    height: 5px;
+    border-left: 2px solid white;
+    border-bottom: 2px solid white;
+    transform: rotate(-45deg) translateY(-1px);
+    display: block;
+  }
+
+  /* 네비게이션 버튼 */
+  .nav {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .btn-back {
+    padding: 13px 20px;
+    font-size: 14px;
+    font-family: 'Noto Sans KR', sans-serif;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: white;
+    color: var(--muted);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .btn-next {
+    flex: 1;
+    padding: 13px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: 'Noto Sans KR', sans-serif;
+    border-radius: 10px;
+    border: none;
+    background: var(--primary);
+    color: white;
+    cursor: pointer;
+    letter-spacing: -0.01em;
+    transition: opacity 0.15s;
+  }
+  .btn-next:active { opacity: 0.85; }
+  .btn-submit {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Noto Sans KR', sans-serif;
+    border-radius: 10px;
+    border: none;
+    background: var(--accent);
+    color: white;
+    cursor: pointer;
+    margin-top: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  /* 병력 헤더 */
+  .hx-header {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--primary);
+    background: #eef2fa;
+    padding: 6px 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    margin-top: 14px;
+  }
+  .hx-header:first-child { margin-top: 0; }
+  .hx-notice {
+    font-size: 11px;
+    color: #b94040;
+    background: #fdecea;
+    padding: 8px 10px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  /* 소중한 분 */
+  .ref-row {
+    border-bottom: 1px solid #f0ede6;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+  }
+  .ref-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .ref-num {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  /* 완료 화면 */
+  #done-view { display: none; }
+  .done-header {
+    background: var(--primary);
+    color: white;
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+  .done-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 28px;
+  }
+  .done-title { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  .done-sub { font-size: 13px; color: rgba(255,255,255,0.65); }
+  .summary-card {
+    background: white;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 1.2rem;
+    margin: 1rem;
+  }
+  .summary-title { font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: 0.06em; margin-bottom: 12px; }
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0ede6;
+    font-size: 13px;
+    gap: 12px;
+  }
+  .summary-row:last-child { border-bottom: none; }
+  .summary-key { color: var(--muted); flex-shrink: 0; }
+  .summary-val { color: var(--text); font-weight: 500; text-align: right; }
+  .btn-new {
+    display: block;
+    margin: 0 1rem 2rem;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: 'Noto Sans KR', sans-serif;
+    border-radius: 10px;
+    border: none;
+    background: var(--primary);
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    width: calc(100% - 2rem);
+  }
+</style>
+</head>
+<body>
+
+<!-- 메인 폼 -->
+<div id="main-form">
+  <div class="header">
+    <div class="header-top">
+      <div>
+        <div class="brand">AZ FINANCIAL SERVICE</div>
+        <div class="title">고객관리 카드<span class="accent-dot">.</span></div>
+      </div>
+      <div style="font-size:11px;color:rgba(255,255,255,0.45);text-align:right;line-height:1.5;">보험, 그 이상을 하다<br>에즈금융서비스</div>
+    </div>
+    <div class="step-bar">
+      <div class="step active" id="st1" onclick="jumpStep(1)">① 고객정보</div>
+      <div class="step" id="st2" onclick="jumpStep(2)">② 병력사항</div>
+      <div class="step" id="st3" onclick="jumpStep(3)">③ 점검목적</div>
+      <div class="step" id="st4" onclick="jumpStep(4)">④ 상담내용</div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress" style="width:25%"></div></div>
+  </div>
+
+  <div class="content">
+
+    <!-- STEP 1 고객정보 -->
+    <div id="s1">
+      <div class="section">
+        <div class="section-title">고객 정보</div>
+        <div class="row2">
+          <div class="field"><label>성함</label><input id="g-name" placeholder="홍길동" /></div>
+          <div class="field"><label>성별</label>
+            <select id="g-gender"><option value="">선택</option><option>남</option><option>여</option></select>
+          </div>
+        </div>
+        <div class="field"><label>주민번호</label><input id="g-ssn" placeholder="000000-0000000" /></div>
+        <div class="row2">
+          <div class="field"><label>연락처</label><input id="g-phone" type="tel" placeholder="010-0000-0000" /></div>
+          <div class="field"><label>통신사</label>
+            <select id="g-telecom"><option value="">선택</option><option>SKT</option><option>KT</option><option>LG U+</option><option>알뜰폰</option></select>
+          </div>
+        </div>
+        <div class="field"><label>주소</label><input id="g-addr" placeholder="주소 입력" /></div>
+        <div class="row2">
+          <div class="field"><label>운전여부</label>
+            <select id="g-drive"><option value="">선택</option><option>O (자동)</option><option>O (수동)</option><option>X</option></select>
+          </div>
+          <div class="field"><label>직업(업무)</label><input id="g-job" placeholder="직업명" /></div>
+        </div>
+        <div class="field"><label>직장명</label><input id="g-company" placeholder="회사명" /></div>
+        <div class="row2">
+          <div class="field"><label>키 (cm)</label><input id="g-height" type="number" placeholder="170" inputmode="numeric" /></div>
+          <div class="field"><label>몸무게 (kg)</label><input id="g-weight" type="number" placeholder="65" inputmode="numeric" /></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label>계좌번호</label><input id="g-account" placeholder="은행명 - 계좌번호" /></div>
+          <div class="field"><label>이체일</label><input id="g-paydate" placeholder="매월 몇일" /></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label>이메일</label><input id="g-email" type="email" placeholder="example@email.com" /></div>
+          <div class="field"><label>모집경로</label><input id="g-route" placeholder="소개, SNS 등" /></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label>가족구성</label><input id="g-family" placeholder="배우자, 자녀2 등" /></div>
+          <div class="field"><label>계약일자</label><input id="g-contractdate" type="date" /></div>
+        </div>
+      </div>
+      <div class="nav">
+        <button class="btn-next" onclick="goS(2)">다음 →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2 병력사항 -->
+    <div id="s2" style="display:none;">
+      <div class="section">
+        <div class="section-title">병력 사항</div>
+        <div class="hx-notice">★ 병력 누락 시, 보험금을 받을 수 없습니다. 빠짐없이 기재 부탁드립니다 ★</div>
+
+        <div class="hx-header">최근 3개월</div>
+        <div class="row2">
+          <div class="field"><label>질병 확정진단</label><input id="h-3m-diag" placeholder="병명" /></div>
+          <div class="field"><label>질병 의심소견</label><input id="h-3m-suspect" placeholder="내용" /></div>
+        </div>
+        <div class="row3">
+          <div class="field"><label>투약</label><input id="h-3m-meds" placeholder="약명" /></div>
+          <div class="field"><label>치료</label><input id="h-3m-treat" placeholder="내용" /></div>
+          <div class="field"><label>입원</label><input id="h-3m-hosp" placeholder="병원/일수" /></div>
+        </div>
+        <div class="field"><label>수술</label><input id="h-3m-surg" placeholder="수술명" /></div>
+
+        <div class="hx-header">최근 1년</div>
+        <div class="field"><label>의사로부터 진찰 또는 검사를 통해 추가검사(재검사) 소견 여부</label>
+          <div style="display:flex;gap:8px;margin-top:2px;">
+            <button class="yn-btn" id="h1y-yes" onclick="ynSelect('h1y','예')">예</button>
+            <button class="yn-btn" id="h1y-no" onclick="ynSelect('h1y','아니오')">아니오</button>
+          </div>
+        </div>
+
+        <div class="hx-header">최근 5년</div>
+        <div class="row2">
+          <div class="field"><label>입원</label><input id="h-5y-hosp" placeholder="병원/기간" /></div>
+          <div class="field"><label>수술</label><input id="h-5y-surg" placeholder="수술명" /></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label>7일이상 치료</label><input id="h-5y-treat7" placeholder="내용" /></div>
+          <div class="field"><label>30일이상 투약</label><input id="h-5y-meds30" placeholder="약명/기간" /></div>
+        </div>
+
+        <div class="hx-header">치료 이력</div>
+        <div class="row2">
+          <div class="field"><label>치료기간</label><input id="h-tx-period" placeholder="기간" /></div>
+          <div class="field"><label>진단명(사유)</label><input id="h-tx-diag" placeholder="병명" /></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label>치료방법</label><input id="h-tx-method" placeholder="방법" /></div>
+          <div class="field"><label>완치여부/현재상태</label><input id="h-tx-status" placeholder="완치 / 치료중" /></div>
+        </div>
+      </div>
+      <div class="nav">
+        <button class="btn-back" onclick="goS(1)">← 이전</button>
+        <button class="btn-next" onclick="goS(3)">다음 →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3 점검목적 -->
+    <div id="s3" style="display:none;">
+      <div class="section">
+        <div class="section-title">점검 목적</div>
+        <div class="yn-item">
+          <div class="yn-q">현재 보험료가 걱정되시나요?</div>
+          <button class="yn-btn" id="p1-yes" onclick="ynSelect('p1','예')">예</button>
+          <button class="yn-btn" id="p1-no" onclick="ynSelect('p1','아니오')">아니오</button>
+        </div>
+        <div class="yn-item">
+          <div class="yn-q">현재 보장이 걱정되시나요?</div>
+          <button class="yn-btn" id="p2-yes" onclick="ynSelect('p2','예')">예</button>
+          <button class="yn-btn" id="p2-no" onclick="ynSelect('p2','아니오')">아니오</button>
+        </div>
+        <div class="yn-item">
+          <div class="yn-q">현재 병력이 있어서 걱정되시나요?</div>
+          <button class="yn-btn" id="p3-yes" onclick="ynSelect('p3','예')">예</button>
+          <button class="yn-btn" id="p3-no" onclick="ynSelect('p3','아니오')">아니오</button>
+        </div>
+        <div class="yn-item">
+          <div class="yn-q">현재 사망보험금이 필요하신가요?</div>
+          <button class="yn-btn" id="p4-yes" onclick="ynSelect('p4','예')">예</button>
+          <button class="yn-btn" id="p4-no" onclick="ynSelect('p4','아니오')">아니오</button>
+        </div>
+        <div class="yn-item">
+          <div class="yn-q">2년후 임플란트 계획이 있으신가요?</div>
+          <button class="yn-btn" id="p5-yes" onclick="ynSelect('p5','예')">예</button>
+          <button class="yn-btn" id="p5-no" onclick="ynSelect('p5','아니오')">아니오</button>
+        </div>
+        <div class="yn-item">
+          <div class="yn-q">현재 간병인 보험이 필요하신가요?</div>
+          <button class="yn-btn" id="p6-yes" onclick="ynSelect('p6','예')">예</button>
+          <button class="yn-btn" id="p6-no" onclick="ynSelect('p6','아니오')">아니오</button>
+        </div>
+        <div class="yn-item">
+          <div class="yn-q">현재 치매보험이 필요하신가요?</div>
+          <button class="yn-btn" id="p7-yes" onclick="ynSelect('p7','예')">예</button>
+          <button class="yn-btn" id="p7-no" onclick="ynSelect('p7','아니오')">아니오</button>
+        </div>
+        <div class="yn-item">
+          <div class="yn-q">지금 저축은 어디서 하고 계신가요?</div>
+          <button class="yn-btn" id="p8-yes" onclick="ynSelect('p8','예')">예</button>
+          <button class="yn-btn" id="p8-no" onclick="ynSelect('p8','아니오')">아니오</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">무엇이든 물어보세요!</div>
+        <div class="check-grid">
+          <div class="check-item" onclick="toggleCheck(this,'자동차보험')"><input type="checkbox"><div class="cb"></div>자동차보험</div>
+          <div class="check-item" onclick="toggleCheck(this,'치매')"><input type="checkbox"><div class="cb"></div>치매</div>
+          <div class="check-item" onclick="toggleCheck(this,'치아(임플란트)')"><input type="checkbox"><div class="cb"></div>치아임플란트</div>
+          <div class="check-item" onclick="toggleCheck(this,'운전자')"><input type="checkbox"><div class="cb"></div>운전자</div>
+          <div class="check-item" onclick="toggleCheck(this,'건강검진')"><input type="checkbox"><div class="cb"></div>건강검진</div>
+          <div class="check-item" onclick="toggleCheck(this,'실비원가')"><input type="checkbox"><div class="cb"></div>실비원가</div>
+          <div class="check-item" onclick="toggleCheck(this,'화재보험')"><input type="checkbox"><div class="cb"></div>화재보험</div>
+          <div class="check-item" onclick="toggleCheck(this,'간병인')"><input type="checkbox"><div class="cb"></div>간병인</div>
+          <div class="check-item" onclick="toggleCheck(this,'암(표적항암·로봇수술)')"><input type="checkbox"><div class="cb"></div>암</div>
+          <div class="check-item" onclick="toggleCheck(this,'저축·연금·노후')"><input type="checkbox"><div class="cb"></div>저축/연금</div>
+          <div class="check-item" onclick="toggleCheck(this,'일상배상책임')"><input type="checkbox"><div class="cb"></div>일상배상</div>
+          <div class="check-item" onclick="toggleCheck(this,'민사소송법률')"><input type="checkbox"><div class="cb"></div>민사소송</div>
+          <div class="check-item" onclick="toggleCheck(this,'상속세')"><input type="checkbox"><div class="cb"></div>상속세</div>
+          <div class="check-item" onclick="toggleCheck(this,'재가요양')"><input type="checkbox"><div class="cb"></div>재가요양</div>
+          <div class="check-item" onclick="toggleCheck(this,'펫(반려견·묘)')"><input type="checkbox"><div class="cb"></div>펫보험</div>
+          <div class="check-item" onclick="toggleCheck(this,'상해보험')"><input type="checkbox"><div class="cb"></div>상해보험</div>
+          <div class="check-item" onclick="toggleCheck(this,'교통사고(합의)')"><input type="checkbox"><div class="cb"></div>교통사고</div>
+          <div class="check-item" onclick="toggleCheck(this,'기타')"><input type="checkbox"><div class="cb"></div>기타</div>
+        </div>
+      </div>
+      <div class="nav">
+        <button class="btn-back" onclick="goS(2)">← 이전</button>
+        <button class="btn-next" onclick="goS(4)">다음 →</button>
+      </div>
+    </div>
+
+    <!-- STEP 4 상담내용 -->
+    <div id="s4" style="display:none;">
+      <div class="section">
+        <div class="section-title">상담 내용</div>
+        <div class="field">
+          <label>상담 내용 / 계약사항</label>
+          <textarea id="c-content" rows="5" placeholder="상담 내용 및 계약 사항을 자유롭게 입력하세요."></textarea>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">상담 같이 들어야 하는 소중한 분</div>
+        <div class="ref-row">
+          <div class="ref-num">① 첫 번째 분</div>
+          <div class="row3">
+            <div class="field"><label>성함</label><input class="ref-name" placeholder="홍길동" /></div>
+            <div class="field"><label>연락처</label><input class="ref-phone" type="tel" placeholder="010-" /></div>
+            <div class="field"><label>관계</label><input class="ref-rel" placeholder="배우자" /></div>
+          </div>
+        </div>
+        <div class="ref-row">
+          <div class="ref-num">② 두 번째 분</div>
+          <div class="row3">
+            <div class="field"><label>성함</label><input class="ref-name" placeholder="홍길동" /></div>
+            <div class="field"><label>연락처</label><input class="ref-phone" type="tel" placeholder="010-" /></div>
+            <div class="field"><label>관계</label><input class="ref-rel" placeholder="자녀" /></div>
+          </div>
+        </div>
+        <div class="ref-row">
+          <div class="ref-num">③ 세 번째 분</div>
+          <div class="row3">
+            <div class="field"><label>성함</label><input class="ref-name" placeholder="홍길동" /></div>
+            <div class="field"><label>연락처</label><input class="ref-phone" type="tel" placeholder="010-" /></div>
+            <div class="field"><label>관계</label><input class="ref-rel" placeholder="부모님" /></div>
+          </div>
+        </div>
+      </div>
+      <div class="nav">
+        <button class="btn-back" onclick="goS(3)">← 이전</button>
+      </div>
+      <button class="btn-submit" onclick="submitCard()">✓ 고객카드 제출 완료</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- 완료 화면 -->
+<div id="done-view">
+  <div class="done-header">
+    <div class="done-icon">✓</div>
+    <div class="done-title">제출 완료!</div>
+    <div class="done-sub" id="done-name-sub">고객님의 정보가 전달되었습니다.</div>
+  </div>
+  <div class="summary-card">
+    <div class="summary-title">제출 내용 요약</div>
+    <div id="done-summary"></div>
+  </div>
+  <button class="btn-new" onclick="resetAll()">새 고객 등록하기</button>
+</div>
+
+<script>
+  var ynState = {};
+  var checkedTopics = [];
+  var currentStep = 1;
+
+  function goS(n) {
+    document.getElementById('s'+currentStep).style.display = 'none';
+    document.getElementById('s'+n).style.display = 'block';
+    currentStep = n;
+    updateStepUI(n);
+    window.scrollTo(0, 0);
+  }
+
+  function jumpStep(n) {
+    if (n <= currentStep) goS(n);
+  }
+
+  function updateStepUI(n) {
+    var pct = [25, 50, 75, 100];
+    document.getElementById('progress').style.width = pct[n-1] + '%';
+    for (var i = 1; i <= 4; i++) {
+      var el = document.getElementById('st'+i);
+      el.className = 'step';
+      if (i < n) el.classList.add('done');
+      else if (i === n) el.classList.add('active');
+    }
+  }
+
+  function ynSelect(name, val) {
+    ynState[name] = val;
+    var yBtn = document.getElementById(name+'-yes');
+    var nBtn = document.getElementById(name+'-no');
+    if (!yBtn || !nBtn) return;
+    yBtn.className = 'yn-btn' + (val === '예' ? ' selected-yes' : '');
+    nBtn.className = 'yn-btn' + (val === '아니오' ? ' selected-no' : '');
+  }
+
+  function toggleCheck(el, val) {
+    el.classList.toggle('checked');
+    var idx = checkedTopics.indexOf(val);
+    if (idx === -1) checkedTopics.push(val);
+    else checkedTopics.splice(idx, 1);
+  }
+
+  function v(id) {
+    var el = document.getElementById(id);
+    return el ? (el.value || '—') : '—';
+  }
+
+  function submitCard() {
+    var name = document.getElementById('g-name').value.trim() || '미입력';
+    var rows = [
+      ['성함', name],
+      ['성별', v('g-gender')],
+      ['연락처', v('g-phone')],
+      ['주소', v('g-addr')],
+      ['직업', v('g-job')],
+      ['직장명', v('g-company')],
+      ['운전여부', v('g-drive')],
+      ['키/몸무게', v('g-height')+'cm / '+v('g-weight')+'kg'],
+      ['가족구성', v('g-family')],
+      ['모집경로', v('g-route')],
+      ['관심 항목', checkedTopics.length ? checkedTopics.join(', ') : '없음'],
+      ['보험료 걱정', ynState['p1'] || '—'],
+      ['보장 걱정', ynState['p2'] || '—'],
+      ['사망보험금 필요', ynState['p4'] || '—'],
+      ['치매보험 필요', ynState['p7'] || '—'],
+      ['상담 내용', v('c-content')],
+    ];
+    document.getElementById('done-name-sub').textContent = name + ' 고객님의 정보가 전달되었습니다.';
+    document.getElementById('done-summary').innerHTML = rows.map(function(r) {
+      return '<div class="summary-row"><span class="summary-key">'+r[0]+'</span><span class="summary-val">'+r[1]+'</span></div>';
+    }).join('');
+    document.getElementById('main-form').style.display = 'none';
+    document.getElementById('done-view').style.display = 'block';
+    window.scrollTo(0, 0);
+  }
+
+  function resetAll() {
+    document.querySelectorAll('input[type=text], input[type=number], input[type=email], input[type=tel], input[type=date], textarea').forEach(function(el){ el.value=''; });
+    document.querySelectorAll('select').forEach(function(el){ el.selectedIndex=0; });
+    document.querySelectorAll('.yn-btn').forEach(function(el){ el.className='yn-btn'; });
+    document.querySelectorAll('.check-item').forEach(function(el){ el.classList.remove('checked'); });
+    ynState = {};
+    checkedTopics = [];
+    currentStep = 1;
+    document.getElementById('done-view').style.display = 'none';
+    document.getElementById('main-form').style.display = 'block';
+    goS(1);
+  }
+</script>
+</body>
+</html>
