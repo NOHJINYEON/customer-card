@@ -625,7 +625,10 @@
   <button class="btn-new" onclick="resetAll()">새 고객 등록하기</button>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script>
+  emailjs.init('E_CGuSU3Th8aGf-5b');
+
   var ynState = {};
   var checkedTopics = [];
   var currentStep = 1;
@@ -690,10 +693,36 @@
       ['관심 항목', checkedTopics.length ? checkedTopics.join(', ') : '없음'],
       ['보험료 걱정', ynState['p1'] || '—'],
       ['보장 걱정', ynState['p2'] || '—'],
+      ['병력 걱정', ynState['p3'] || '—'],
       ['사망보험금 필요', ynState['p4'] || '—'],
+      ['임플란트 계획', ynState['p5'] || '—'],
+      ['간병인 보험', ynState['p6'] || '—'],
       ['치매보험 필요', ynState['p7'] || '—'],
       ['상담 내용', v('c-content')],
     ];
+
+    var refNames = document.querySelectorAll('.ref-name');
+    var refPhones = document.querySelectorAll('.ref-phone');
+    var refRels = document.querySelectorAll('.ref-rel');
+    for (var i = 0; i < refNames.length; i++) {
+      if (refNames[i].value.trim()) {
+        rows.push(['소중한분'+(i+1)+' 성함', refNames[i].value]);
+        rows.push(['소중한분'+(i+1)+' 연락처', refPhones[i].value]);
+        rows.push(['소중한분'+(i+1)+' 관계', refRels[i].value]);
+      }
+    }
+
+    var msgText = rows.map(function(r){ return r[0] + ': ' + r[1]; }).join('\n');
+
+    emailjs.send('service_0jbz2km', 'template_yo8iku3', {
+      customer_name: name,
+      message: msgText
+    }).then(function() {
+      console.log('이메일 전송 성공');
+    }, function(error) {
+      console.log('이메일 전송 실패', error);
+    });
+
     document.getElementById('done-name-sub').textContent = name + ' 고객님의 정보가 전달되었습니다.';
     document.getElementById('done-summary').innerHTML = rows.map(function(r) {
       return '<div class="summary-row"><span class="summary-key">'+r[0]+'</span><span class="summary-val">'+r[1]+'</span></div>';
